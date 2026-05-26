@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Specialists' Academy — Excellence in Online Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --emerald: #014439;
+    --emerald-light: #025a4d;
+    --emerald-deep: #012e26;
+    --burgundy: #5C162E;
+    --burgundy-light: #7a1e3d;
+    --burgundy-deep: #3e0f1f;
+    --gold: #D4AF37;
+    --gold-light: #e8ca5a;
+    --gold-dark: #b8961e;
+    --silver: #c8d0d8;
+    --white: #f9f7f2;
+    --text-dark: #0e1a17;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Poppins', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* ─── UTILITY ─── */
+  .gold-text { color: var(--gold); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .section-label {
+    font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.6rem; display: block;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15;
+  }
+
+  /* ─── URGENT BANNER ─── */
+  .urgent-banner {
+    background: var(--burgundy); color: var(--gold);
+    text-align: center; padding: 0.55rem 1rem;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em;
+    position: relative; z-index: 1001;
+  }
+  .urgent-banner i { margin-right: 0.4rem; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: rgba(1, 68, 57, 0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.35); }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.85rem 1.5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .logo-shield {
+    width: 44px; height: 44px; flex-shrink: 0;
+  }
+  .logo-text { color: var(--white); line-height: 1.15; }
+  .logo-text .abbr { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--gold); display: block; }
+  .logo-text .full { font-size: 0.6rem; font-weight: 400; letter-spacing: 0.06em; color: var(--silver); text-transform: uppercase; display: block; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--silver); font-size: 0.82rem; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.04em;
+    transition: color 0.2s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 1px; background: var(--gold); transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    background: var(--gold); color: var(--emerald-deep);
+    border: none; padding: 0.55rem 1.4rem;
+    font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span { width: 24px; height: 2px; background: var(--silver); display: block; transition: all 0.3s; }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none; background: var(--emerald-deep);
+    border-top: 1px solid rgba(212,175,55,0.15); padding: 1rem 1.5rem 1.5rem;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; color: var(--silver); padding: 0.65rem 0;
+    font-size: 0.9rem; text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .nav-cta { margin-top: 1rem; display: inline-block; padding: 0.6rem 1.5rem; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--emerald-deep);
+    position: relative; overflow: hidden; min-height: 90vh;
+    display: flex; align-items: center;
+  }
+  .hero-geo {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .hero-geo::before {
+    content: ''; position: absolute;
+    width: 600px; height: 600px;
+    border: 1px solid rgba(212,175,55,0.08);
+    border-radius: 50%;
+    top: -200px; right: -150px;
+  }
+  .hero-geo::after {
+    content: ''; position: absolute;
+    width: 400px; height: 400px;
+    border: 1px solid rgba(212,175,55,0.06);
+    border-radius: 50%;
+    bottom: -100px; left: -80px;
+  }
+  .hero-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-inner {
+    position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;
+    padding: 5rem 1.5rem 4rem; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  }
+  .hero-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .badge {
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+    padding: 0.35rem 0.8rem; border: 1px solid;
+    text-transform: uppercase;
+  }
+  .badge-gold { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.08); }
+  .badge-silver { border-color: var(--silver); color: var(--silver); background: rgba(200,208,216,0.08); }
+  .hero-title {
+    font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 1.2rem;
+  }
+  .hero-title em { color: var(--gold); font-style: normal; }
+  .hero-subtitle {
+    color: var(--silver); font-size: 0.95rem; font-weight: 400;
+    line-height: 1.75; margin-bottom: 1rem; max-width: 480px;
+  }
+  .hero-urgent {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(92,22,46,0.5); border: 1px solid rgba(212,175,55,0.3);
+    color: var(--gold); padding: 0.5rem 1rem;
+    font-size: 0.8rem; font-weight: 600; margin-bottom: 2rem;
+    animation: borderGlow 2.5s infinite;
+  }
+  @keyframes borderGlow {
+    0%,100% { border-color: rgba(212,175,55,0.3); box-shadow: none; }
+    50% { border-color: rgba(212,175,55,0.8); box-shadow: 0 0 12px rgba(212,175,55,0.2); }
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--emerald-deep);
+    border: 2px solid var(--gold); padding: 0.8rem 2rem;
+    font-family: var(--font-body); font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); border-color: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.3); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 2px solid rgba(200,208,216,0.4); padding: 0.8rem 2rem;
+    font-family: var(--font-body); font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.15);
+    padding: 2.5rem; position: relative;
+  }
+  .hero-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 60px; height: 3px; background: var(--gold);
+  }
+  .hero-card-title {
+    font-family: var(--font-display); font-size: 1.5rem;
+    color: var(--gold); font-weight: 600; margin-bottom: 1.5rem;
+  }
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--font-display); font-size: 2.8rem;
+    font-weight: 700; color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: 0.7rem; color: var(--silver); margin-top: 0.25rem; letter-spacing: 0.05em; }
+  .hero-divider { border: none; border-top: 1px solid rgba(212,175,55,0.15); margin: 1.5rem 0; }
+  .stream-list { list-style: none; }
+  .stream-list li {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: var(--silver); font-size: 0.82rem; padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .stream-list li:last-child { border-bottom: none; }
+  .stream-list i { color: var(--gold); font-size: 0.9rem; width: 16px; }
+
+  /* ─── WAVE DIVIDER ─── */
+  .wave { line-height: 0; display: block; }
+  .wave svg { display: block; width: 100%; }
+
+  /* ─── PROGRAMS ─── */
+  .programs { background: var(--white); padding: 5rem 0; }
+  .programs-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .prog-card {
+    border: 1px solid rgba(1,68,57,0.15); padding: 2.5rem 2rem;
+    position: relative; overflow: hidden; transition: all 0.3s;
+    background: #fff;
+  }
+  .prog-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--gold); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.3s;
+  }
+  .prog-card::after {
+    content: ''; position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: rgba(1,68,57,0.03);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    transition: all 0.3s;
+  }
+  .prog-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(1,68,57,0.1); border-color: transparent; }
+  .prog-card:hover::before { transform: scaleX(1); }
+  .prog-card:hover::after { background: rgba(212,175,55,0.08); }
+  .prog-icon-wrap {
+    width: 60px; height: 60px; background: var(--emerald);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; position: relative;
+    clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+  }
+  .prog-icon-wrap i { color: var(--gold); font-size: 1.4rem; }
+  .prog-tag {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold);
+    background: rgba(212,175,55,0.1); padding: 0.2rem 0.6rem;
+    display: inline-block; margin-bottom: 0.75rem;
+  }
+  .prog-title {
+    font-family: var(--font-display); font-size: 1.6rem;
+    font-weight: 700; color: var(--emerald); margin-bottom: 0.75rem;
+  }
+  .prog-desc { color: #5a6a60; font-size: 0.82rem; line-height: 1.7; margin-bottom: 1.25rem; }
+  .prog-subjects { list-style: none; }
+  .prog-subjects li {
+    font-size: 0.75rem; color: #4a5a50; padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(1,68,57,0.06);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .prog-subjects li:last-child { border-bottom: none; }
+  .prog-subjects i { color: var(--gold); font-size: 0.65rem; }
+
+  /* ─── WHY CHOOSE US ─── */
+  .features {
+    background: var(--emerald);
+    padding: 5rem 0; position: relative; overflow: hidden;
+  }
+  .features-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: repeating-linear-gradient(
+      45deg, rgba(212,175,55,0.03) 0px, rgba(212,175,55,0.03) 1px, transparent 1px, transparent 40px
+    );
+  }
+  .features .section-title { color: var(--white); }
+  .features .section-label { color: var(--gold); }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+    margin-top: 2.5rem; margin-bottom: 3rem;
+  }
+  .feat-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(212,175,55,0.15);
+    padding: 1.75rem; display: flex; gap: 1.25rem; align-items: flex-start;
+    transition: all 0.3s;
+  }
+  .feat-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(212,175,55,0.4); transform: translateX(4px); }
+  .feat-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feat-icon i { color: var(--gold); font-size: 1.2rem; }
+  .feat-title { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.35rem; }
+  .feat-desc { font-size: 0.78rem; color: var(--silver); line-height: 1.6; }
+  .highlights-box {
+    border-left: 3px solid var(--gold); padding: 1.75rem 2rem;
+    background: rgba(92,22,46,0.25); margin-top: 1rem;
+  }
+  .highlights-title {
+    font-family: var(--font-display); font-size: 1.4rem;
+    color: var(--gold); margin-bottom: 1rem; font-weight: 600;
+  }
+  .highlights-list { list-style: none; }
+  .highlights-list li {
+    color: var(--silver); font-size: 0.82rem; line-height: 1.6;
+    padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: flex-start; gap: 0.75rem;
+  }
+  .highlights-list li:last-child { border-bottom: none; }
+  .highlights-list i { color: var(--gold); margin-top: 0.15rem; flex-shrink: 0; }
+
+  /* ─── FACULTY ─── */
+  .faculty { background: var(--white); padding: 5rem 0; }
+  .faculty-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    margin-top: 3rem;
+  }
+  .faculty-card {
+    border: 1px solid rgba(1,68,57,0.12); padding: 1.75rem;
+    position: relative; transition: all 0.3s; background: #fff;
+  }
+  .faculty-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--burgundy);
+    transition: height 0.3s;
+  }
+  .faculty-card:hover { box-shadow: 0 12px 40px rgba(1,68,57,0.1); transform: translateY(-3px); }
+  .faculty-card:hover::before { height: 100%; }
+  .faculty-subj {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold);
+    background: rgba(212,175,55,0.08); padding: 0.25rem 0.6rem;
+    display: inline-block; margin-bottom: 0.75rem;
+  }
+  .faculty-avatar {
+    width: 52px; height: 52px; background: var(--emerald);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-family: var(--font-display);
+    font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 1rem;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .faculty-name {
+    font-family: var(--font-display); font-size: 1.2rem;
+    font-weight: 600; color: var(--emerald); margin-bottom: 0.25rem;
+  }
+  .faculty-role { font-size: 0.75rem; color: #6a8070; font-weight: 400; }
+  .faculty-divider { border: none; border-top: 1px solid rgba(1,68,57,0.1); margin: 0.75rem 0; }
+  .faculty-tag { font-size: 0.7rem; color: var(--burgundy); font-weight: 500; }
+
+  /* Math card is double */
+  .faculty-card.double { grid-column: span 1; }
+
+  /* ─── FOOTER / CONTACT ─── */
+  .contact-cta {
+    background: var(--burgundy); padding: 4rem 0; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .contact-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      -45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 30px
+    );
+  }
+  .cta-title {
+    font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem);
+    color: var(--white); font-weight: 700; position: relative; z-index: 1; margin-bottom: 1rem;
+  }
+  .cta-sub { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+  .contact-cta .btn-primary { position: relative; z-index: 1; font-size: 0.9rem; padding: 0.9rem 2.5rem; }
+
+  footer {
+    background: var(--emerald-deep); color: var(--silver);
+    padding: 3.5rem 0 1.5rem;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 2.5rem;
+    padding-bottom: 2.5rem; border-bottom: 1px solid rgba(212,175,55,0.15);
+    margin-bottom: 1.5rem;
+  }
+  .footer-about .footer-logo { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+  .footer-about .abbr { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+  .footer-about p { font-size: 0.78rem; line-height: 1.7; color: #8aaa99; max-width: 260px; }
+  .footer-col-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .footer-links { list-style: none; }
+  .footer-links li { padding: 0.3rem 0; }
+  .footer-links a { color: #8aaa99; font-size: 0.78rem; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .contact-items { list-style: none; }
+  .contact-items li { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.35rem 0; font-size: 0.78rem; color: #8aaa99; }
+  .contact-items i { color: var(--gold); margin-top: 0.1rem; flex-shrink: 0; font-size: 0.85rem; }
+  .contact-items a { color: #8aaa99; text-decoration: none; transition: color 0.2s; }
+  .contact-items a:hover { color: var(--gold); }
+
+  .qr-placeholder {
+    width: 72px; height: 72px; border: 2px solid rgba(212,175,55,0.3);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin-top: 0.75rem; cursor: pointer; transition: border-color 0.2s;
+  }
+  .qr-placeholder:hover { border-color: var(--gold); }
+  .qr-placeholder i { color: var(--gold); font-size: 1.8rem; }
+  .qr-placeholder span { font-size: 0.5rem; color: var(--silver); margin-top: 0.2rem; letter-spacing: 0.05em; }
+
+  .social-row { display: flex; gap: 0.6rem; margin-top: 1rem; }
+  .social-btn {
+    width: 36px; height: 36px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(212,175,55,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--silver); font-size: 0.85rem; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .social-btn:hover { background: var(--gold); color: var(--emerald-deep); border-color: var(--gold); transform: translateY(-2px); }
+
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 0.75rem; font-size: 0.72rem; color: #5a7a68;
+  }
+  .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    .hero-inner { grid-template-columns: 1fr; padding-top: 3rem; }
+    .hero-card { display: none; }
+    .programs-grid { grid-template-columns: 1fr 1fr; }
+    .faculty-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .programs-grid { grid-template-columns: 1fr; }
+    .faculty-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 2.2rem; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- URGENT BANNER -->
+<div class="urgent-banner">
+  <i class="fa-solid fa-bell"></i>
+  Classes Start from 1st June 2026 — Limited Seats Available. Hurry Up &amp; Register Now!
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <!-- Shield Logo SVG -->
+      <svg class="logo-shield" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 2L4 10V26C4 37.5 12.5 47.5 22 50C31.5 47.5 40 37.5 40 26V10L22 2Z" fill="#014439" stroke="#D4AF37" stroke-width="1.5"/>
+        <path d="M22 5L7 12V26C7 36 14.5 45 22 47.5C29.5 45 37 36 37 26V12L22 5Z" fill="#012e26"/>
+        <!-- Star -->
+        <path d="M22 12l1.5 4.5H28l-3.8 2.8 1.5 4.5L22 21l-3.7 2.8 1.5-4.5L16 16.5h4.5z" fill="#D4AF37"/>
+        <!-- Torch flame -->
+        <ellipse cx="22" cy="30" rx="2.2" ry="3" fill="#D4AF37" opacity="0.9"/>
+        <!-- Book -->
+        <rect x="16" y="36" width="12" height="7" rx="0.5" fill="#5C162E" stroke="#D4AF37" stroke-width="0.8"/>
+        <line x1="22" y1="36" x2="22" y2="43" stroke="#D4AF37" stroke-width="0.7"/>
+      </svg>
+      <div class="logo-text">
+        <span class="abbr">TSA</span>
+        <span class="full">The Specialists' Academy</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#faculty">Faculty</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Enroll Now</button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#hero" class="mobile-link">Home</a>
+    <a href="#programs" class="mobile-link">Programs</a>
+    <a href="#faculty" class="mobile-link">Faculty</a>
+    <a href="#features" class="mobile-link">Features</a>
+    <a href="#contact" class="mobile-link">Contact Us</a>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Enroll Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-geo"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badges reveal">
+        <span class="badge badge-gold"><i class="fa-solid fa-circle-dot fa-xs" style="margin-right:4px;animation:pulse 1.2s infinite"></i> Live Online Classes</span>
+        <span class="badge badge-silver">New Batch Starting</span>
+      </div>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Online Classes for<br/><em>Sindh Board</em><br/>XI &amp; XII
+      </h1>
+      <p class="hero-subtitle reveal reveal-delay-2">
+        Subject Mastery, Delivered Online. Admissions Now Open for <strong style="color:var(--gold)">MDCAT / ECAT</strong> &amp; Coaching.
+      </p>
+      <div class="hero-urgent reveal reveal-delay-3">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        Classes Start 1st June 2026 — Hurry Up!
+      </div>
+      <div class="hero-btns reveal reveal-delay-4">
+        <a href="#contact" class="btn-primary">Register Now</a>
+        <a href="#programs" class="btn-outline">View Schedule</a>
+      </div>
+    </div>
+
+    <div class="hero-card reveal reveal-delay-2">
+      <p class="hero-card-title">Why TSA?</p>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Academic Streams</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Expert Faculty</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">XI</div>
+          <div class="stat-label">Year One</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">XII</div>
+          <div class="stat-label">Year Two</div>
+        </div>
+      </div>
+      <hr class="hero-divider" />
+      <ul class="stream-list">
+        <li><i class="fa-solid fa-check"></i> Sindh Board Focused Curriculum</li>
+        <li><i class="fa-solid fa-check"></i> MDCAT &amp; ECAT Preparation</li>
+        <li><i class="fa-solid fa-check"></i> Live Interactive Sessions</li>
+        <li><i class="fa-solid fa-check"></i> Weekly MCQ Tests &amp; Analysis</li>
+        <li><i class="fa-solid fa-check"></i> Personalised Learning Plans</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C240,50 480,50 720,25 C960,0 1200,0 1440,30 L1440,50 L0,50 Z" fill="#012e26"/>
+    <path d="M0,0 C240,50 480,50 720,25 C960,0 1200,0 1440,30 L1440,50 L0,50 Z" fill="#f9f7f2" transform="translate(0,1)"/>
+  </svg>
+</div>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:0.5rem">
+      <span class="section-label">Academic Streams</span>
+      <h2 class="section-title" style="color:var(--emerald)">Choose Your Path to<br/><em style="font-style:italic;color:var(--burgundy)">Excellence</em></h2>
+      <p style="color:#6a8a78;font-size:0.85rem;margin-top:0.75rem;max-width:520px;margin-left:auto;margin-right:auto;">
+        Expertly curated programs aligned with the Sindh Board syllabus, updated paper patterns, and university entrance requirements.
+      </p>
+    </div>
+
+    <div class="programs-grid">
+      <!-- Pre-Engineering -->
+      <div class="prog-card reveal">
+        <div class="prog-icon-wrap">
+          <i class="fa-solid fa-compass-drafting"></i>
+        </div>
+        <span class="prog-tag">Stream 01</span>
+        <h3 class="prog-title">Pre-Engineering</h3>
+        <p class="prog-desc">Rigorous preparation for ECAT and engineering admissions, with concept-based problem solving and quantitative mastery.</p>
+        <ul class="prog-subjects">
+          <li><i class="fa-solid fa-angle-right"></i> Physics (XI &amp; XII)</li>
+          <li><i class="fa-solid fa-angle-right"></i> Mathematics</li>
+          <li><i class="fa-solid fa-angle-right"></i> Chemistry</li>
+          <li><i class="fa-solid fa-angle-right"></i> English</li>
+        </ul>
+      </div>
+
+      <!-- Pre-Medical -->
+      <div class="prog-card reveal reveal-delay-1">
+        <div class="prog-icon-wrap" style="background:var(--burgundy)">
+          <i class="fa-solid fa-dna"></i>
+        </div>
+        <span class="prog-tag">Stream 02</span>
+        <h3 class="prog-title">Pre-Medical</h3>
+        <p class="prog-desc">Comprehensive MDCAT-focused preparation covering life sciences with an emphasis on conceptual clarity and exam technique.</p>
+        <ul class="prog-subjects">
+          <li><i class="fa-solid fa-angle-right"></i> Biology (Botany &amp; Zoology)</li>
+          <li><i class="fa-solid fa-angle-right"></i> Chemistry</li>
+          <li><i class="fa-solid fa-angle-right"></i> Physics</li>
+          <li><i class="fa-solid fa-angle-right"></i> English</li>
+        </ul>
+      </div>
+
+      <!-- CS -->
+      <div class="prog-card reveal reveal-delay-2">
+        <div class="prog-icon-wrap" style="background:#1a3a5c">
+          <i class="fa-solid fa-laptop-code"></i>
+        </div>
+        <span class="prog-tag">Stream 03</span>
+        <h3 class="prog-title">Computer Science</h3>
+        <p class="prog-desc">Future-ready digital literacy program combining Sindh Board CS curriculum with practical programming skills and logical thinking.</p>
+        <ul class="prog-subjects">
+          <li><i class="fa-solid fa-angle-right"></i> Computer Science</li>
+          <li><i class="fa-solid fa-angle-right"></i> Mathematics</li>
+          <li><i class="fa-solid fa-angle-right"></i> Physics</li>
+          <li><i class="fa-solid fa-angle-right"></i> English</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="features-bg"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <span class="section-label">Why Choose Us</span>
+    <h2 class="section-title" style="color:var(--white);margin-bottom:0.5rem">Progressive E-Learning<br/>Built for <em style="font-style:italic;color:var(--gold)">Results</em></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:start">
+      <div>
+        <div class="features-grid">
+          <div class="feat-card reveal">
+            <div class="feat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div>
+              <p class="feat-title">Expert Teachers</p>
+              <p class="feat-desc">Seasoned educators with deep subject expertise and proven track records in Sindh Board examinations.</p>
+            </div>
+          </div>
+          <div class="feat-card reveal reveal-delay-1">
+            <div class="feat-icon"><i class="fa-solid fa-video"></i></div>
+            <div>
+              <p class="feat-title">Live Interactive Classes</p>
+              <p class="feat-desc">Real-time online sessions where students can ask questions, participate, and engage directly with faculty.</p>
+            </div>
+          </div>
+          <div class="feat-card reveal reveal-delay-2">
+            <div class="feat-icon"><i class="fa-solid fa-brain"></i></div>
+            <div>
+              <p class="feat-title">Concept-Based Learning</p>
+              <p class="feat-desc">We go beyond rote memorisation — building deep understanding that empowers students in any exam format.</p>
+            </div>
+          </div>
+          <div class="feat-card reveal reveal-delay-3">
+            <div class="feat-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+              <p class="feat-title">Tests &amp; Performance Analysis</p>
+              <p class="feat-desc">Regular topic-wise MCQ tests with detailed performance reports to track progress and identify gaps.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <div class="highlights-box">
+          <p class="highlights-title">Our Distinct Advantages</p>
+          <ul class="highlights-list">
+            <li>
+              <i class="fa-solid fa-shield-halved"></i>
+              <span>Sindh Board focused with <strong style="color:var(--white)">updated syllabus</strong> and the latest paper pattern for XI &amp; XII.</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-list-check"></i>
+              <span>Topic-wise <strong style="color:var(--white)">MCQ tests</strong> after every major concept, with instant performance analysis and feedback.</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-user-graduate"></i>
+              <span><strong style="color:var(--white)">Personalised learning experience</strong> — we adapt to each student's pace, strength, and target goals.</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-bolt"></i>
+              <span>Dedicated <strong style="color:var(--white)">MDCAT &amp; ECAT</strong> coaching integrated within the class curriculum.</span>
+            </li>
+            <li>
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>Direct <strong style="color:var(--white)">WhatsApp support</strong> for doubt clearing and assignment submission between sessions.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1.25rem;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.2)">
+          <p style="font-size:0.75rem;color:var(--silver);line-height:1.7">
+            <i class="fa-solid fa-calendar-check" style="color:var(--gold);margin-right:0.4rem"></i>
+            <strong style="color:var(--white)">New Batch commencing 1st June 2026.</strong><br/>
+            Register today to secure your place — seats are strictly limited to maintain class quality.
+          </p>
+          <a href="#contact" class="btn-primary" style="margin-top:1rem;font-size:0.78rem;display:inline-block">Secure Your Seat</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY -->
+<section class="faculty" id="faculty">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:0.5rem">
+      <span class="section-label">Our Faculty</span>
+      <h2 class="section-title" style="color:var(--emerald)">Progressive E-Learning<br/><em style="font-style:italic;color:var(--burgundy)">Faculty</em></h2>
+      <p style="color:#6a8a78;font-size:0.85rem;margin-top:0.75rem;max-width:480px;margin-left:auto;margin-right:auto;">
+        Handpicked educators — each a master of their discipline — committed to your academic success.
+      </p>
+    </div>
+
+    <div class="faculty-grid">
+      <!-- English -->
+      <div class="faculty-card reveal">
+        <span class="faculty-subj">English</span>
+        <div class="faculty-avatar">AG</div>
+        <p class="faculty-name">Prof. Akif Ghafoor</p>
+        <hr class="faculty-divider" />
+        <p class="faculty-role">English Language &amp; Literature</p>
+        <p class="faculty-tag" style="margin-top:0.4rem;font-size:0.68rem"><i class="fa-solid fa-star fa-xs" style="color:var(--gold);margin-right:3px"></i>Sindh Board Specialist</p>
+      </div>
+
+      <!-- Physics -->
+      <div class="faculty-card reveal reveal-delay-1">
+        <span class="faculty-subj" style="background:rgba(92,22,46,0.08);color:var(--burgundy)">Physics</span>
+        <div class="faculty-avatar" style="background:var(--burgundy)">IR</div>
+        <p class="faculty-name">Prof. Ibad Ur Rehman</p>
+        <hr class="faculty-divider" />
+        <p class="faculty-role">Physics — XI &amp; XII</p>
+        <p class="faculty-tag" style="margin-top:0.4rem;font-size:0.68rem"><i class="fa-solid fa-star fa-xs" style="color:var(--gold);margin-right:3px"></i>ECAT &amp; MDCAT Expert</p>
+      </div>
+
+      <!-- Botany/Zoology -->
+      <div class="faculty-card reveal reveal-delay-2">
+        <span class="faculty-subj">Botany / Zoology</span>
+        <div class="faculty-avatar">AA</div>
+        <p class="faculty-name">Prof. Ayaz Amir Shar</p>
+        <hr class="faculty-divider" />
+        <p class="faculty-role">Biological Sciences</p>
+        <p class="faculty-tag" style="margin-top:0.4rem;font-size:0.68rem"><i class="fa-solid fa-star fa-xs" style="color:var(--gold);margin-right:3px"></i>Pre-Medical Specialist</p>
+      </div>
+
+      <!-- Math 1 -->
+      <div class="faculty-card reveal reveal-delay-1">
+        <span class="faculty-subj" style="background:rgba(26,58,92,0.08);color:#1a3a5c">Mathematics</span>
+        <div class="faculty-avatar" style="background:#1a3a5c">BM</div>
+        <p class="faculty-name">Prof. Bhalji Mal</p>
+        <hr class="faculty-divider" />
+        <p class="faculty-role">Advanced Mathematics</p>
+        <p class="faculty-tag" style="margin-top:0.4rem;font-size:0.68rem"><i class="fa-solid fa-star fa-xs" style="color:var(--gold);margin-right:3px"></i>Pre-Engineering &amp; CS</p>
+      </div>
+
+      <!-- Math 2 -->
+      <div class="faculty-card reveal reveal-delay-2">
+        <span class="faculty-subj" style="background:rgba(26,58,92,0.08);color:#1a3a5c">Mathematics</span>
+        <div class="faculty-avatar" style="background:#1a3a5c">MH</div>
+        <p class="faculty-name">Prof. Muzaffar Hussain</p>
+        <hr class="faculty-divider" />
+        <p class="faculty-role">Mathematics — Co-Faculty</p>
+        <p class="faculty-tag" style="margin-top:0.4rem;font-size:0.68rem"><i class="fa-solid fa-star fa-xs" style="color:var(--gold);margin-right:3px"></i>Conceptual Problem Solving</p>
+      </div>
+
+      <!-- Chemistry -->
+      <div class="faculty-card reveal reveal-delay-3">
+        <span class="faculty-subj" style="background:rgba(92,22,46,0.08);color:var(--burgundy)">Chemistry</span>
+        <div class="faculty-avatar" style="background:var(--burgundy)">HM</div>
+        <p class="faculty-name">Prof. Haris Memon</p>
+        <hr class="faculty-divider" />
+        <p class="faculty-role">Chemistry — XI &amp; XII</p>
+        <p class="faculty-tag" style="margin-top:0.4rem;font-size:0.68rem"><i class="fa-solid fa-star fa-xs" style="color:var(--gold);margin-right:3px"></i>MDCAT &amp; ECAT Chemistry</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="contact-cta" id="contact">
+  <div class="container">
+    <h2 class="cta-title">Ready to Begin Your<br/><em style="color:var(--gold);font-style:italic">Academic Journey?</em></h2>
+    <p class="cta-sub">Join TSA's new batch starting 1st June 2026. Limited seats — register today.</p>
+    <a href="tel:+923342921115" class="btn-primary">Register Now</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-top">
+
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="32" height="38" viewBox="0 0 44 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 2L4 10V26C4 37.5 12.5 47.5 22 50C31.5 47.5 40 37.5 40 26V10L22 2Z" fill="#014439" stroke="#D4AF37" stroke-width="1.5"/>
+            <path d="M22 12l1.5 4.5H28l-3.8 2.8 1.5 4.5L22 21l-3.7 2.8 1.5-4.5L16 16.5h4.5z" fill="#D4AF37"/>
+            <ellipse cx="22" cy="30" rx="2.2" ry="3" fill="#D4AF37" opacity="0.9"/>
+            <rect x="16" y="36" width="12" height="7" rx="0.5" fill="#5C162E" stroke="#D4AF37" stroke-width="0.8"/>
+            <line x1="22" y1="36" x2="22" y2="43" stroke="#D4AF37" stroke-width="0.7"/>
+          </svg>
+          <span class="abbr">The Specialists' Academy</span>
+        </div>
+        <p>Delivering expert-led online education for Sindh Board students across XI &amp; XII, with a focus on MDCAT, ECAT, and conceptual mastery.</p>
+        <div class="social-row" style="margin-top:1.25rem">
+          <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://wa.me/923342921115" class="social-btn" aria-label="WhatsApp" style="background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.3)"><i class="fa-brands fa-whatsapp" style="color:#25d366"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#faculty">Faculty</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#contact">Enroll Now</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Streams</p>
+        <ul class="footer-links">
+          <li><a href="#programs">Pre-Engineering</a></li>
+          <li><a href="#programs">Pre-Medical</a></li>
+          <li><a href="#programs">Computer Science</a></li>
+          <li><a href="#programs">MDCAT Prep</a></li>
+          <li><a href="#programs">ECAT Prep</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Contact &amp; WhatsApp</p>
+        <ul class="contact-items">
+          <li>
+            <i class="fa-brands fa-whatsapp"></i>
+            <a href="https://wa.me/923342921115">+92 334 2921115</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-whatsapp"></i>
+            <a href="https://wa.me/923132959853">+92 313 2959853</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+923103828037">+92 310 3828037</a>
+          </li>
+        </ul>
+
+        <div class="qr-placeholder" onclick="window.open('https://wa.me/923342921115','_blank')" title="Scan to WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>SCAN TO CHAT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 The Specialists' Academy. All rights reserved.</span>
+      <span>Designed with <i class="fa-solid fa-heart" style="color:var(--burgundy);font-size:0.65rem"></i> for aspiring scholars of Sindh.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Trigger hero elements immediately
+  setTimeout(() => {
+    document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 120);
+    });
+  }, 100);
+</script>
+</body>
+</html>
